@@ -325,7 +325,7 @@ final class DeviceDataManager {
 
         setupPump()
         setupCGM()
-                
+        
         cgmStalenessMonitor.$cgmDataIsStale
             .combineLatest($cgmHasValidSensorSession)
             .map { $0 == false || $1 }
@@ -926,6 +926,15 @@ extension DeviceDataManager: PumpManagerDelegate {
                 NotificationCenter.default.post(name: .PumpEventsAdded, object: self, userInfo: nil)
             }
         }
+    }
+    
+    func pumpManager(_ pumpManager: PumpManager, hasNewBasalRateSchedule basalRateSchedule: BasalRateSchedule, completion: @escaping (_ error: Error?) -> Void) {
+        dispatchPrecondition(condition: .onQueue(queue))
+        
+        
+        log.info("PumpManager: %{public}@ has new basal rate schedule: %{public}@", String(describing: type(of: pumpManager)), String(describing:basalRateSchedule))
+        loopManager.basalRateSchedule = basalRateSchedule
+        completion(nil)
     }
 
     func pumpManager(_ pumpManager: PumpManager, didReadReservoirValue units: Double, at date: Date, completion: @escaping (_ result: Swift.Result<(newValue: ReservoirValue, lastValue: ReservoirValue?, areStoredValuesContinuous: Bool), Error>) -> Void) {
