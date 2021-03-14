@@ -83,3 +83,5 @@ WatchApp/DerivedAssets.xcassets/*
 
 Loop/DerivedAssetsOverride.xcassets
 WatchApp/DerivedAssetsOverride.xcassets
+
+/Loop/Loop/Nudge/NudgeKit.xcframework/
