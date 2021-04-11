@@ -531,6 +531,15 @@ extension DeviceDataManager: PumpManagerDelegate {
             }
         }
     }
+    
+    func pumpManager(_ pumpManager: PumpManager, hasNewBasalRateSchedule basalRateSchedule: BasalRateSchedule, completion: @escaping (_ error: Error?) -> Void) {
+        dispatchPrecondition(condition: .onQueue(queue))
+
+
+        log.info("PumpManager: \(type(of: pumpManager)) has new basal rate schedule: \(String(describing:basalRateSchedule))")
+        loopManager.basalRateSchedule = basalRateSchedule
+        completion(nil)
+    }
 
     func pumpManager(_ pumpManager: PumpManager, didReadReservoirValue units: Double, at date: Date, completion: @escaping (_ result: PumpManagerResult<(newValue: ReservoirValue, lastValue: ReservoirValue?, areStoredValuesContinuous: Bool)>) -> Void) {
         dispatchPrecondition(condition: .onQueue(queue))

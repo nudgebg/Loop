@@ -74,3 +74,5 @@ Loop.xcworkspace
 # Avoid checking in built assets
 Loop/DerivedAssets.xcassets/
 WatchApp/DerivedAssets.xcassets/
+
+Loop/Nudge/NudgeKit.xcframework/
