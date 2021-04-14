@@ -52,7 +52,8 @@ final class SettingsTableViewController: UITableViewController {
     }
 
     fileprivate enum LoopRow: Int, CaseCountable {
-        case dosing = 0
+        case signin = 0
+        case dosing
         case diagnostic
     }
 
@@ -158,6 +159,21 @@ final class SettingsTableViewController: UITableViewController {
         switch sections[indexPath.section] {
         case .loop:
             switch LoopRow(rawValue: indexPath.row)! {
+            case .signin:
+                let loggedIn = LocalStorageManager.shared.patient != nil
+                if loggedIn {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: TextButtonTableViewCell.className, for: indexPath)
+                    cell.textLabel?.text = NSLocalizedString("Sign Out", comment: "Title text for Sign Out Button")
+                    return cell
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.className, for: indexPath)
+                    
+                    cell.textLabel?.text = NSLocalizedString("Sign In", comment: "The title text for the Sign In button")
+                    cell.detailTextLabel?.text = nil
+                    cell.accessoryType = .disclosureIndicator
+
+                    return cell
+                }
             case .dosing:
                 let switchCell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.className, for: indexPath) as! SwitchTableViewCell
 
@@ -560,6 +576,27 @@ final class SettingsTableViewController: UITableViewController {
             }
         case .loop:
             switch LoopRow(rawValue: indexPath.row)! {
+            case .signin:
+                let loggedIn = LocalStorageManager.shared.patient != nil
+                if loggedIn {
+                    let alert = UIAlertController(title: "Sign Out", message: "Are you sure you want to sign out? Nudging will not be enabled while you are signed out.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [weak self] value in
+                        LocalStorageManager.shared.patient = nil
+                        //TODO, switch from NudgeManger to Loop, not sure this is really needed
+//                        self?.dataManager.nudgeManager.settings.dosingEnabled = false
+                        DispatchQueue.main.async {
+                            self?.tableView.reloadData()
+                        }
+                    }))
+                    present(alert, animated: true)
+                } else {
+                    let onboardStoryboard = UIStoryboard(name: "Onboard", bundle: nil)
+                    guard let onboardView = onboardStoryboard.instantiateViewController(withIdentifier: "nudgeAuth") as? OnboardViewController else { return }
+                    onboardView.title = loggedIn ? "Sign In" : "Sign Out"
+                    onboardView.delegate = self
+                    show(onboardView, sender: sender)
+                }
             case .diagnostic:
                 let vc = CommandResponseViewController.generateDiagnosticReport(deviceManager: dataManager)
                 vc.title = sender?.textLabel?.text
@@ -904,5 +941,13 @@ private extension UIAlertController {
         ))
 
         addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+    }
+}
+
+extension SettingsTableViewController: OnboardDelegate {
+    func onboardComplete() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
 }

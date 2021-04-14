@@ -22,6 +22,16 @@
 
 /* Begin PBXBuildFile section */
 		0185F515262380B500136A76 /* NudgeKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0185F514262380B500136A76 /* NudgeKit.xcframework */; };
+		0185F5DA26267D0700136A76 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F5D826267D0700136A76 /* AuthViewController.swift */; };
+		0185F5DB26267D0700136A76 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F5D926267D0700136A76 /* OnboardViewController.swift */; };
+		0185F5E526267DB700136A76 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0185F5E426267DB700136A76 /* Alamofire */; };
+		0185F5EF26267E1F00136A76 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0185F5EE26267E1F00136A76 /* IQKeyboardManagerSwift */; };
+		0185F5F926267E4300136A76 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0185F5F826267E4300136A76 /* PhoneNumberKit */; };
+		0185F60226267E9800136A76 /* Onboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0185F60126267E9800136A76 /* Onboard.storyboard */; };
+		0185F60B2626815800136A76 /* PatientRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F60A2626815800136A76 /* PatientRemoteDataManager.swift */; };
+		0185F6142626819900136A76 /* PLIstManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F6132626819900136A76 /* PLIstManager.swift */; };
+		0185F61D262681D300136A76 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F61C262681D300136A76 /* LocalStorageManager.swift */; };
+		0185F6262626863200136A76 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0185F6252626863200136A76 /* Settings.plist */; };
 		43027F0F1DFE0EC900C51989 /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526D5E1DF2459000A04910 /* HKUnit.swift */; };
 		4302F4E11D4E9C8900F0FCAF /* TextFieldTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4302F4E01D4E9C8900F0FCAF /* TextFieldTableViewController.swift */; };
 		4302F4E31D4EA54200F0FCAF /* InsulinDeliveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4302F4E21D4EA54200F0FCAF /* InsulinDeliveryTableViewController.swift */; };
@@ -573,6 +583,13 @@
 
 /* Begin PBXFileReference section */
 		0185F514262380B500136A76 /* NudgeKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = NudgeKit.xcframework; path = Loop/Nudge/NudgeKit.xcframework; sourceTree = "<group>"; };
+		0185F5D826267D0700136A76 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		0185F5D926267D0700136A76 /* OnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
+		0185F60126267E9800136A76 /* Onboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboard.storyboard; sourceTree = "<group>"; };
+		0185F60A2626815800136A76 /* PatientRemoteDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientRemoteDataManager.swift; sourceTree = "<group>"; };
+		0185F6132626819900136A76 /* PLIstManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLIstManager.swift; sourceTree = "<group>"; };
+		0185F61C262681D300136A76 /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
+		0185F6252626863200136A76 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
 		4302F4E01D4E9C8900F0FCAF /* TextFieldTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewController.swift; sourceTree = "<group>"; };
 		4302F4E21D4EA54200F0FCAF /* InsulinDeliveryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsulinDeliveryTableViewController.swift; sourceTree = "<group>"; };
 		430B29892041F54A00BA9F93 /* NSUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
@@ -1122,10 +1139,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0185F5F926267E4300136A76 /* PhoneNumberKit in Frameworks */,
 				434FB6461D68F1CD007B9C70 /* Amplitude.framework in Frameworks */,
 				43A8EC6F210E622700A81379 /* CGMBLEKitUI.framework in Frameworks */,
 				438A95A81D8B9B24009D12E1 /* CGMBLEKit.framework in Frameworks */,
+				0185F5E526267DB700136A76 /* Alamofire in Frameworks */,
 				43C246A81D89990F0031F8D1 /* Crypto.framework in Frameworks */,
+				0185F5EF26267E1F00136A76 /* IQKeyboardManagerSwift in Frameworks */,
 				4D3B40041D4A9E1A00BC6334 /* G4ShareSpy.framework in Frameworks */,
 				43F5C2C91B929C09003EB13D /* HealthKit.framework in Frameworks */,
 				43D9FFD621EAE05D00AF44BF /* LoopCore.framework in Frameworks */,
@@ -1230,6 +1250,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0185F5D726267D0700136A76 /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				0185F5D826267D0700136A76 /* AuthViewController.swift */,
+				0185F5D926267D0700136A76 /* OnboardViewController.swift */,
+				0185F60126267E9800136A76 /* Onboard.storyboard */,
+			);
+			path = Onboard;
+			sourceTree = "<group>";
+		};
 		4328E0121CFBE1B700E199AA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1353,6 +1383,7 @@
 				7D7076511FE06EE1004AC8EA /* InfoPlist.strings */,
 				43EDEE6B1CF2E12A00393BE3 /* Loop.entitlements */,
 				43F5C2D41B92A4A6003EB13D /* Info.plist */,
+				0185F6252626863200136A76 /* Settings.plist */,
 				43776F8F1B8022E90074EA36 /* AppDelegate.swift */,
 				43776F981B8022E90074EA36 /* DefaultAssets.xcassets */,
 				C1A3EED1235233E1007672E3 /* DerivedAssets.xcassets */,
@@ -1605,6 +1636,7 @@
 		43F5C2CE1B92A2A0003EB13D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0185F5D726267D0700136A76 /* Onboard */,
 				43DBF04B1C93B8D700B3C386 /* BolusViewController.swift */,
 				43A51E1E1EB6D62A000736CC /* CarbAbsorptionViewController.swift */,
 				892D7C5023B54A14008A9656 /* CarbEntryViewController.swift */,
@@ -1648,6 +1680,9 @@
 		43F5C2E41B93C5D4003EB13D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0185F61C262681D300136A76 /* LocalStorageManager.swift */,
+				0185F6132626819900136A76 /* PLIstManager.swift */,
+				0185F60A2626815800136A76 /* PatientRemoteDataManager.swift */,
 				439897361CD2F80600223065 /* AnalyticsManager.swift */,
 				439BED291E76093C00B0AED5 /* CGMManager.swift */,
 				43DBF0521C93EC8200B3C386 /* DeviceDataManager.swift */,
@@ -1960,6 +1995,11 @@
 				43D9FFD521EAE05D00AF44BF /* PBXTargetDependency */,
 			);
 			name = Loop;
+			packageProductDependencies = (
+				0185F5E426267DB700136A76 /* Alamofire */,
+				0185F5EE26267E1F00136A76 /* IQKeyboardManagerSwift */,
+				0185F5F826267E4300136A76 /* PhoneNumberKit */,
+			);
 			productName = Loop;
 			productReference = 43776F8C1B8022E90074EA36 /* Loop.app */;
 			productType = "com.apple.product-type.application";
@@ -2279,6 +2319,11 @@
 				ro,
 			);
 			mainGroup = 43776F831B8022E90074EA36;
+			packageReferences = (
+				0185F5E326267DB700136A76 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0185F5ED26267E1F00136A76 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				0185F5F726267E4300136A76 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+			);
 			productRefGroup = 43776F8D1B8022E90074EA36 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2305,10 +2350,12 @@
 			files = (
 				C13255D6223E7BE2008AF50C /* BolusProgressTableViewCell.xib in Resources */,
 				43FCBBC21E51710B00343C1B /* LaunchScreen.storyboard in Resources */,
+				0185F6262626863200136A76 /* Settings.plist in Resources */,
 				7D70764F1FE06EE1004AC8EA /* InfoPlist.strings in Resources */,
 				C1A3EED2235233E1007672E3 /* DerivedAssets.xcassets in Resources */,
 				7D7076631FE06EE4004AC8EA /* Localizable.strings in Resources */,
 				43776F971B8022E90074EA36 /* Main.storyboard in Resources */,
+				0185F60226267E9800136A76 /* Onboard.storyboard in Resources */,
 				C1265BEE231BF7F700652B84 /* DefaultAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2624,6 +2671,7 @@
 				4F2C15821E074FC600E160D4 /* NSTimeInterval.swift in Sources */,
 				4311FB9B1F37FE1B00D4C0A7 /* TitleSubtitleTextFieldTableViewCell.swift in Sources */,
 				C1FB428F217921D600FAB378 /* PumpManagerUI.swift in Sources */,
+				0185F5DB26267D0700136A76 /* OnboardViewController.swift in Sources */,
 				43C513191E864C4E001547C7 /* GlucoseRangeSchedule.swift in Sources */,
 				43A51E1F1EB6D62A000736CC /* CarbAbsorptionViewController.swift in Sources */,
 				43776F901B8022E90074EA36 /* AppDelegate.swift in Sources */,
@@ -2651,6 +2699,7 @@
 				43E2D8C81D208D5B004DA55F /* KeychainManager+Loop.swift in Sources */,
 				C17824A01E19CF9800D9D25C /* GlucoseThresholdTableViewController.swift in Sources */,
 				4372E487213C86240068E043 /* SampleValue.swift in Sources */,
+				0185F6142626819900136A76 /* PLIstManager.swift in Sources */,
 				4346D1E71C77F5FE00ABAFE3 /* ChartTableViewCell.swift in Sources */,
 				437CEEE41CDE5C0A003C8C80 /* UIImage.swift in Sources */,
 				892D7C5123B54A15008A9656 /* CarbEntryViewController.swift in Sources */,
@@ -2659,6 +2708,7 @@
 				43E93FB71E469A5100EAB8DB /* HKUnit.swift in Sources */,
 				43C05CAF21EB2C24006FB252 /* NSBundle.swift in Sources */,
 				43BFF0BC1E45C80600FF19A9 /* UIColor+Loop.swift in Sources */,
+				0185F61D262681D300136A76 /* LocalStorageManager.swift in Sources */,
 				43C0944A1CACCC73001F6403 /* NotificationManager.swift in Sources */,
 				43D9003321EB258C00AF44BF /* InsulinModelSettings+Loop.swift in Sources */,
 				434FF1EE1CF27EEF000DB779 /* UITableViewCell.swift in Sources */,
@@ -2666,6 +2716,7 @@
 				C18C8C511D5A351900E043FB /* NightscoutDataManager.swift in Sources */,
 				C165B8CE23302C5D0004112E /* RemoteCommand.swift in Sources */,
 				438849EA1D297CB6003B3F23 /* NightscoutService.swift in Sources */,
+				0185F5DA26267D0700136A76 /* AuthViewController.swift in Sources */,
 				438172D91F4E9E37003C3328 /* NewPumpEvent.swift in Sources */,
 				4389916B1E91B689000EEF90 /* ChartSettings+Loop.swift in Sources */,
 				C178249A1E1999FA00D9D25C /* CaseCountable.swift in Sources */,
@@ -2723,6 +2774,7 @@
 				438849EE1D2A1EBB003B3F23 /* MLabService.swift in Sources */,
 				438D42FB1D7D11A4003244B0 /* PredictionInputEffectTableViewCell.swift in Sources */,
 				43F4EF1D1BA2A57600526CE1 /* DiagnosticLogger.swift in Sources */,
+				0185F60B2626815800136A76 /* PatientRemoteDataManager.swift in Sources */,
 				432E73CB1D24B3D6009AD15D /* RemoteDataManager.swift in Sources */,
 				43C2FAE11EB656A500364AFF /* GlucoseEffectVelocity.swift in Sources */,
 			);
@@ -4205,6 +4257,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0185F5E326267DB700136A76 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.2;
+			};
+		};
+		0185F5ED26267E1F00136A76 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
+		0185F5F726267E4300136A76 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0185F5E426267DB700136A76 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0185F5E326267DB700136A76 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		0185F5EE26267E1F00136A76 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0185F5ED26267E1F00136A76 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		0185F5F826267E4300136A76 /* PhoneNumberKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0185F5F726267E4300136A76 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = PhoneNumberKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 43776F841B8022E90074EA36 /* Project object */;
 }
