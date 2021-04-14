@@ -34,6 +34,9 @@ public extension DosingStrategy {
 }
 
 public struct LoopSettings: Equatable {
+    
+    public var nudgingEnabled = false
+    
     public var dosingEnabled = false
 
     public let dynamicCarbAbsorptionEnabled = true
@@ -119,6 +122,7 @@ public struct LoopSettings: Equatable {
 
 
     public init(
+        nudgingEnabled: Bool = false,
         dosingEnabled: Bool = false,
         glucoseTargetRangeSchedule: GlucoseRangeSchedule? = nil,
         maximumBasalRatePerHour: Double? = nil,
@@ -126,6 +130,7 @@ public struct LoopSettings: Equatable {
         suspendThreshold: GlucoseThreshold? = nil
     ) {
         self.dosingEnabled = dosingEnabled
+        self.nudgingEnabled = nudgingEnabled
         self.glucoseTargetRangeSchedule = glucoseTargetRangeSchedule
         self.maximumBasalRatePerHour = maximumBasalRatePerHour
         self.maximumBolus = maximumBolus

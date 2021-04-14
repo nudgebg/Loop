@@ -53,6 +53,7 @@ final class SettingsTableViewController: UITableViewController {
 
     fileprivate enum LoopRow: Int, CaseCountable {
         case signin = 0
+        case nudging
         case dosing
         case diagnostic
     }
@@ -174,6 +175,19 @@ final class SettingsTableViewController: UITableViewController {
 
                     return cell
                 }
+            case .nudging:
+                let switchCell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.className, for: indexPath) as! SwitchTableViewCell
+
+                let loggedIn = LocalStorageManager.shared.patient != nil
+                switchCell.isUserInteractionEnabled = loggedIn
+                
+                switchCell.selectionStyle = .none
+                switchCell.switch?.isOn = dataManager.loopManager.settings.nudgingEnabled
+                switchCell.textLabel?.text = NSLocalizedString("Nudging", comment: "The title text for the looping enabled switch cell")
+
+                switchCell.switch?.addTarget(self, action: #selector(nudgingEnabledChanged(_:)), for: .valueChanged)
+
+                return switchCell
             case .dosing:
                 let switchCell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.className, for: indexPath) as! SwitchTableViewCell
 
@@ -585,6 +599,7 @@ final class SettingsTableViewController: UITableViewController {
                         LocalStorageManager.shared.patient = nil
                         //TODO, switch from NudgeManger to Loop, not sure this is really needed
 //                        self?.dataManager.nudgeManager.settings.dosingEnabled = false
+                        self?.dataManager.loopManager.settings.nudgingEnabled = false
                         DispatchQueue.main.async {
                             self?.tableView.reloadData()
                         }
@@ -602,6 +617,8 @@ final class SettingsTableViewController: UITableViewController {
                 vc.title = sender?.textLabel?.text
 
                 show(vc, sender: sender)
+            case .nudging:
+                break
             case .dosing:
                 break
             }
@@ -653,6 +670,10 @@ final class SettingsTableViewController: UITableViewController {
 
     @objc private func dosingEnabledChanged(_ sender: UISwitch) {
         dataManager.loopManager.settings.dosingEnabled = sender.isOn
+    }
+    
+    @objc private func nudgingEnabledChanged(_ sender: UISwitch) {
+        dataManager.loopManager.settings.nudgingEnabled = sender.isOn
     }
 }
 
