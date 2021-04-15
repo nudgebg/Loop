@@ -230,6 +230,10 @@ extension LoopSettings: RawRepresentable {
         if let dosingEnabled = rawValue["dosingEnabled"] as? Bool {
             self.dosingEnabled = dosingEnabled
         }
+        
+        if let nudgingEnabled = rawValue["nudgingEnabled"] as? Bool {
+            self.nudgingEnabled = nudgingEnabled
+        }
 
         if let glucoseRangeScheduleRawValue = rawValue["glucoseTargetRangeSchedule"] as? GlucoseRangeSchedule.RawValue {
             self.glucoseTargetRangeSchedule = GlucoseRangeSchedule(rawValue: glucoseRangeScheduleRawValue)
@@ -280,6 +284,7 @@ extension LoopSettings: RawRepresentable {
         var raw: RawValue = [
             "version": LoopSettings.version,
             "dosingEnabled": dosingEnabled,
+            "nudgingEnabled": nudgingEnabled,
             "overridePresets": overridePresets.map { $0.rawValue }
         ]
 

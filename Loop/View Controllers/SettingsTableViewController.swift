@@ -41,6 +41,7 @@ final class SettingsTableViewController: UITableViewController {
     private lazy var isTestingPumpManager = dataManager.pumpManager is TestingPumpManager
     private lazy var isTestingCGMManager = dataManager.cgmManager is TestingCGMManager
 
+    
     fileprivate enum Section: Int, CaseIterable {
         case loop = 0
         case pump
@@ -51,7 +52,7 @@ final class SettingsTableViewController: UITableViewController {
         case testingCGMDataDeletion
     }
 
-    fileprivate enum LoopRow: Int, CaseCountable {
+    fileprivate enum LoopRow: Int, CaseIterable {
         case signin = 0
         case nudging
         case dosing
@@ -132,7 +133,18 @@ final class SettingsTableViewController: UITableViewController {
         if !isTestingCGMManager {
             sections.remove(.testingCGMDataDeletion)
         }
+        if (dataManager.loopManager.settings.nudgingEnabled) {
+            sections.remove(.configuration)
+        }
         return sections
+    }
+    
+    private var loopRows: [LoopRow] {
+        var loopRows = LoopRow.allCases
+        if (dataManager.loopManager.settings.nudgingEnabled) {
+            loopRows.remove(.dosing)
+        }
+        return loopRows
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -142,7 +154,7 @@ final class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case .loop:
-            return LoopRow.count
+            return loopRows.count
         case .pump:
             return PumpRow.count
         case .cgm:
@@ -159,7 +171,7 @@ final class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
         case .loop:
-            switch LoopRow(rawValue: indexPath.row)! {
+            switch loopRows[indexPath.row] {
             case .signin:
                 let loggedIn = LocalStorageManager.shared.patient != nil
                 if loggedIn {
@@ -674,6 +686,7 @@ final class SettingsTableViewController: UITableViewController {
     
     @objc private func nudgingEnabledChanged(_ sender: UISwitch) {
         dataManager.loopManager.settings.nudgingEnabled = sender.isOn
+        tableView.reloadData()
     }
 }
 
