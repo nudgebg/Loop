@@ -10,6 +10,7 @@ import Foundation
 import HealthKit
 import LoopKit
 import LoopCore
+import NudgeKit
 
 
 final class LoopDataManager {
@@ -28,6 +29,10 @@ final class LoopDataManager {
     let doseStore: DoseStore
 
     let glucoseStore: GlucoseStore
+    
+    let nudgeService: NudgeService
+    
+    var resetPersonSimulatorOnNextRun: Bool = false
 
     weak var delegate: LoopDataManagerDelegate?
 
@@ -55,6 +60,8 @@ final class LoopDataManager {
     ) {
         self.logger = DiagnosticLogger.shared.forCategory("LoopDataManager")
         self.lockedLastLoopCompleted = Locked(lastLoopCompleted)
+        self.lockedLastIOBUnits = Locked(nil)
+        self.lockedLastNudgeStatus = Locked(nil)
         self.lockedBasalDeliveryState = Locked(basalDeliveryState)
         self.settings = settings
         self.overrideHistory = overrideHistory
@@ -85,6 +92,8 @@ final class LoopDataManager {
         glucoseStore = GlucoseStore(healthStore: healthStore, cacheStore: cacheStore, cacheLength: .hours(24))
 
         retrospectiveCorrection = settings.enabledRetrospectiveCorrectionAlgorithm
+        
+        nudgeService = NudgeService()
 
         overrideHistory.delegate = self
         cacheStore.delegate = self
@@ -161,6 +170,31 @@ final class LoopDataManager {
     // MARK: - Calculation state
 
     fileprivate let dataAccessQueue: DispatchQueue = DispatchQueue(label: "com.loudnate.Naterade.LoopDataManager.dataAccessQueue", qos: .utility)
+    
+    // Nudge Vars
+    fileprivate var lastEGVForcast: [EGVSample]?
+    
+    var lastIOBUnits: Double? {
+        get {
+            return lockedLastIOBUnits.value
+        }
+        set {
+            lockedLastIOBUnits.value = newValue
+        }
+    }
+    private let lockedLastIOBUnits: Locked<Double?>
+    
+    var lastNudgeStatus: String? {
+        get {
+            return lockedLastNudgeStatus.value
+        }
+        set {
+            lockedLastNudgeStatus.value = newValue
+        }
+    }
+    private let lockedLastNudgeStatus: Locked<String?>
+    
+    // End Nudge Vars
 
     private var carbEffect: [GlucoseEffect]? {
         didSet {
@@ -296,6 +330,21 @@ final class LoopDataManager {
         AnalyticsManager.shared.loopDidSucceed(duration)
         NotificationCenter.default.post(name: .LoopCompleted, object: self)
 
+    }
+    
+    private func loopDidComplete(executionTime: Date, duration: TimeInterval, nudgeOutputData: NudgeOutputData) {
+        lastLoopCompleted = executionTime
+        lastIOBUnits = nudgeOutputData.iobUnits
+        lastNudgeStatus = nudgeOutputData.status
+        NotificationCenter.default.post(name: .LoopCompleted, object: self)
+
+//        --- Remove Person Simulator Options
+//
+//        if resetPersonSimulatorOnNextRun {
+//            UserDefaults.appGroup?.lastPersonSimlatorResetDate = executionTime
+//            resetPersonSimulatorOnNextRun = false
+//            delegate?.nudgeDataManager(self, didResetPersonSimulator: executionTime)
+//        }
     }
 }
 
@@ -685,34 +734,140 @@ extension LoopDataManager {
             self.lastLoopError = nil
             let startDate = Date()
 
-            do {
-                try self.update()
+            // If/Else for Loop/Nudge
+            if self.settings.nudgingEnabled {
+                let executionTime = Date()
+                guard
+                    let maximumBasalUnitsPerHour = self.settings.maximumBasalRatePerHour,
+                    let maximumBolusUnits = self.settings.maximumBolus
+                else {
+                    self.lastLoopError = LoopError.configurationError(.generalSettings)
+                    return
+                }
+                
+                do {
+                    let nudgeOutputData = try self.updateNudge(
+                        executionTime: executionTime,
+                        maximumBasalUnitsPerHour: maximumBasalUnitsPerHour,
+                        maximumBolusUnits: maximumBolusUnits
+                    )
 
-                if self.settings.dosingEnabled {
-                    self.enactDose { (error) -> Void in
-                        self.lastLoopError = error
+                    let requestedActions = nudgeOutputData.requestedActions
 
-                        if let error = error {
-                            self.logger.error(error)
-                        } else {
-                            self.loopDidComplete(date: Date(), duration: -startDate.timeIntervalSinceNow)
-                        }
-                        self.logger.default("Loop ended")
-                        self.notify(forChange: .tempBasal)
+
+                    if nudgeOutputData.egvForecast.count > 0 {
+                        self.lastEGVForcast = nudgeOutputData.egvForecast
+                    } else {
+                        self.lastEGVForcast = nil
                     }
 
-                    // Delay the notification until we know the result of the temp basal
-                    return
-                } else {
-                    self.loopDidComplete(date: Date(), duration: -startDate.timeIntervalSinceNow)
+                    var dosingRecommendation: AutomaticDoseRecommendation?
+
+                    if self.settings.dosingEnabled {
+                        requestedActions.forEach { (requestedAction) -> Void in
+                            switch requestedAction {
+                            case .startTempBasal(units: let units, duration: let duration):
+                                let tempBasalRecommendation = TempBasalRecommendation(
+                                    unitsPerHour: self.limitedUnits(requestedUnits: units, maxUnits: maximumBasalUnitsPerHour),
+                                    duration: .minutes(Double(duration))
+                                )
+                                if let existingRecommendation = dosingRecommendation {
+                                    dosingRecommendation = AutomaticDoseRecommendation(basalAdjustment: tempBasalRecommendation, bolusUnits: existingRecommendation.bolusUnits)
+                                } else {
+                                    dosingRecommendation = AutomaticDoseRecommendation(basalAdjustment: tempBasalRecommendation, bolusUnits: 0)
+                                }
+                            case .startBolus(units: let units):
+                                if let existingRecommendation = dosingRecommendation {
+                                    dosingRecommendation = AutomaticDoseRecommendation(basalAdjustment: existingRecommendation.basalAdjustment, bolusUnits: units)
+                                } else {
+                                    dosingRecommendation = AutomaticDoseRecommendation(basalAdjustment: nil, bolusUnits: units)
+                                }
+                            case .setBasalSchedule(_):
+                                self.logger.default("got setBasalSchedule")
+                            @unknown default:
+                                self.logger.default("got unknown action")
+                            }
+                        }
+
+                        if let dosingRecommendation = dosingRecommendation {
+                            self.logger.default("Current basal state: \(String(describing: self.basalDeliveryState))")
+                            self.logger.default("Recommending dose: \(dosingRecommendation) at \(executionTime)")
+                            self.recommendedDose = (recommendation: dosingRecommendation, date: executionTime)
+                        } else {
+                            self.recommendedDose = nil
+                        }
+
+                        self.enactDose { (error) -> Void in
+                            self.lastLoopError = error
+
+                            if let error = error {
+                                self.logger.error(error)
+                            } else {
+                                self.loopDidComplete(
+                                    executionTime: executionTime,
+                                    duration: -executionTime.timeIntervalSinceNow,
+                                    nudgeOutputData: nudgeOutputData
+                                )
+                            }
+                            self.logger.default("Loop ended")
+                            self.notify(forChange: .tempBasal)
+                        }
+
+                        // Delay the notification until we know the result of the temp basal
+                        return
+                    } else {
+                        self.loopDidComplete(
+                            executionTime: executionTime,
+                            duration: -executionTime.timeIntervalSinceNow,
+                            nudgeOutputData: nudgeOutputData
+                        )
+                    }
+
+                } catch let error {
+                    self.lastLoopError = error
                 }
-            } catch let error {
-                self.lastLoopError = error
+            } else {
+                do {
+                    try self.update()
+
+                    if self.settings.dosingEnabled {
+                        self.enactDose { (error) -> Void in
+                            self.lastLoopError = error
+
+                            if let error = error {
+                                self.logger.error(error)
+                            } else {
+                                self.loopDidComplete(date: Date(), duration: -startDate.timeIntervalSinceNow)
+                            }
+                            self.logger.default("Loop ended")
+                            self.notify(forChange: .tempBasal)
+                        }
+
+                        // Delay the notification until we know the result of the temp basal
+                        return
+                    } else {
+                        self.loopDidComplete(date: Date(), duration: -startDate.timeIntervalSinceNow)
+                    }
+                } catch let error {
+                    self.lastLoopError = error
+                }
             }
 
             self.logger.default("Loop ended")
             self.notify(forChange: .tempBasal)
         }
+    }
+    
+    // Nudge-Used Function
+    fileprivate func limitedUnits(requestedUnits: Double, maxUnits: Double) -> Double {
+        let limited: Double
+        if requestedUnits > maxUnits {
+            limited = maxUnits
+        } else {
+            limited = requestedUnits
+        }
+
+        return limited
     }
 
     /// - Throws:
@@ -849,6 +1004,150 @@ extension LoopDataManager {
                 throw error
             }
         }
+    }
+    
+    /// - Throws:
+    ///     - NudgeError.configurationError
+    ///     - NudgeError.glucoseTooOld
+    ///     - NudgeError.missingDataError
+    ///     - NudgeError.pumpDataTooOld
+    fileprivate func updateNudge(executionTime: Date, maximumBasalUnitsPerHour: Double, maximumBolusUnits: Double) throws -> NudgeOutputData {
+        dispatchPrecondition(condition: .onQueue(dataAccessQueue))
+        let updateGroup = DispatchGroup()
+
+        let sixHoursAgo = Date(timeIntervalSinceNow: -.hours(6))
+
+        // TODO Jon Fawcett 2020-04-16
+        // Temporarily remove person sim
+//        let lastPersonSimlatorResetDate: Date?
+//        if resetPersonSimulatorOnNextRun {
+//            lastPersonSimlatorResetDate = executionTime
+//        } else {
+//            lastPersonSimlatorResetDate = UserDefaults.appGroup?.lastPersonSimlatorResetDate
+//        }
+
+        // Fetch glucose effects as far back as we want to make retroactive analysis
+        var latestGlucoseDate: Date?
+        var egvSamples: Array<EGVSample> = []
+        updateGroup.enter()
+        //TODO: since last model run
+        glucoseStore.getCachedGlucoseSamples(start: Date(timeIntervalSinceNow: -.hours(24))) { (values) in
+            latestGlucoseDate = values.last?.startDate
+            egvSamples = values.map { (sample) in
+                return EGVSample(
+                    mgdlValue: sample.quantity.doubleValue(for: HKUnit.milligramsPerDeciliter),
+                    at: sample.startDate
+                )
+            }
+            updateGroup.leave()
+        }
+        _ = updateGroup.wait(timeout: .distantFuture)
+
+        var carbSamples: Array<CarbSample> = []
+        updateGroup.enter()
+        //TODO: since last model run
+        carbStore.getCachedCarbSamples(start: sixHoursAgo) { (values) in
+            carbSamples = values.map { (sample) in
+                return CarbSample(
+                    gramValue: sample.quantity.doubleValue(for: HKUnit.gram()),
+                    at: sample.startDate
+                )
+            }
+            updateGroup.leave()
+        }
+        _ = updateGroup.wait(timeout: .distantFuture)
+
+        var sleepInfo: SleepInfo? = nil
+        // TODO Jon Fawcett 2020-04-12
+        // Temporaily removed this due to error with Loop update. SleepStore.swift was changed from (<HourAndMinute>) to (<Date>)
+//        updateGroup.enter()
+//        sleepStore.getAverageSleepStartTime() { (result) in
+//            if case let .success((hour, minute)) = result {
+//                sleepInfo = SleepInfo(
+//                    averageSleepStart: (hour: hour, minute: minute),
+//                    averageSleepEnd: (hour: 7, minute: minute)
+//                )
+//            }
+//            updateGroup.leave()
+//        }
+//        _ = updateGroup.wait(timeout: .distantFuture)
+
+        var pumpEvents: Array<PumpEvent> = []
+        updateGroup.enter()
+        let doseStartDate: Date
+        
+        // TODO Jon Fawcett 2020-04-12
+        // Person Sim is not integrated so the commented section causes errors.
+        // Replaced for now with this line to use all doses from last 6 hours per the else statement in original code
+        doseStartDate = sixHoursAgo
+        
+//        if let lastPersonSimlatorResetDate = lastPersonSimlatorResetDate, lastPersonSimlatorResetDate > sixHoursAgo {
+//            //only include doses started after reset
+//            doseStartDate = lastPersonSimlatorResetDate
+//        } else {
+//            //otherwise include all doese in the last 6 hours
+//            //TODO: since last model run?
+//            doseStartDate = sixHoursAgo
+//        }
+
+        doseStore.getNormalizedDoseEntries(start: doseStartDate) { (result) in
+            if case let .success(doses) = result {
+                pumpEvents = doses.map { (dose) in
+                    switch dose.type {
+                    case .basal:
+                        return PumpEvent.basal(
+                            unitsPerHour: dose.unitsPerHour,
+                            startAt: dose.startDate,
+                            endAt: dose.endDate
+                        )
+                    case .tempBasal:
+                        return PumpEvent.tempBasal(
+                            unitsPerHour: dose.unitsPerHour,
+                            startAt: dose.startDate,
+                            endAt: dose.endDate
+                        )
+                    case .bolus:
+                         return PumpEvent.bolus(
+                            deliveredUnits: dose.unitsInDeliverableIncrements,
+                            at: dose.endDate
+                        )
+                    case .resume:
+                        return PumpEvent.resume(at: dose.endDate)
+                    case .suspend:
+                        return PumpEvent.suspend(at: dose.endDate)
+                    }
+                }
+            }
+            updateGroup.leave()
+        }
+        _ = updateGroup.wait(timeout: .distantFuture)
+
+        let currentReservoirUnits: Double
+        if let lastReservoirValue = doseStore.lastReservoirValue, lastReservoirValue.startDate > executionTime.addingTimeInterval(.minutes(-15)) {
+            currentReservoirUnits = lastReservoirValue.unitVolume
+        } else {
+            currentReservoirUnits = 0
+        }
+
+        guard let _ = latestGlucoseDate else {
+            throw LoopError.missingDataError(.glucose)
+        }
+
+        return nudgeService.runModel(NudgeInputData(
+            executionTime: executionTime,
+            reservoirUnitsRemaining: currentReservoirUnits,
+            egvSamples: egvSamples,
+            carbSamples: carbSamples,
+            sleepInfo: sleepInfo,
+            pumpEvents: pumpEvents,
+            settings: NudgeKitSettings(
+                mgdlTarget: 120,
+                totalDailyBasalDose: basalRateSchedule?.total() ?? 0,
+                maximumBasalUnitsPerHour: maximumBasalUnitsPerHour,
+                maximumBolusUnits: maximumBolusUnits
+            ),
+            resetPersonSimulator: resetPersonSimulatorOnNextRun
+        ))
     }
 
     private func notify(forChange context: LoopUpdateContext) {
