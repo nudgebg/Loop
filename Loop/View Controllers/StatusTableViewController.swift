@@ -984,11 +984,15 @@ final class StatusTableViewController: ChartsTableViewController {
         case .charts:
             switch ChartRow(rawValue: indexPath.row)! {
             case .glucose:
-                performSegue(withIdentifier: PredictionTableViewController.className, sender: indexPath)
+                if !deviceManager.loopManager.settings.nudgingEnabled {
+                    performSegue(withIdentifier: PredictionTableViewController.className, sender: indexPath)
+                }
             case .iob, .dose:
                 performSegue(withIdentifier: InsulinDeliveryTableViewController.className, sender: indexPath)
             case .cob:
-                performSegue(withIdentifier: CarbAbsorptionViewController.className, sender: indexPath)
+                if !deviceManager.loopManager.settings.nudgingEnabled {
+                    performSegue(withIdentifier: CarbAbsorptionViewController.className, sender: indexPath)
+                }
             }
         case .status:
             switch StatusRow(rawValue: indexPath.row)! {
