@@ -226,7 +226,7 @@ class StatusViewController: UIViewController, NCWidgetProviding {
                 self.hudView.basalRateHUD.setNetBasalRate(netBasal.rate, percent: netBasal.percentage, at: netBasal.start)
             }
 
-            self.hudView.loopCompletionHUD.dosingEnabled = defaults.loopSettings?.dosingEnabled ?? false
+            self.hudView.loopCompletionHUD.dosingEnabled = defaults.loopSettings?.dosingEnabled ?? false || defaults.loopSettings?.nudgingEnabled ?? false
 
             if let lastCompleted = context.lastLoopCompleted {
                 self.hudView.loopCompletionHUD.lastLoopCompleted = lastCompleted

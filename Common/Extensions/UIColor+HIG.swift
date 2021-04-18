@@ -17,4 +17,8 @@ extension UIColor {
     static func HIGGreenColor() -> UIColor {
         return UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
     }
+    
+    static func NudgeBlueColor() -> UIColor {
+        return UIColor(red: 22 / 255, green: 86 / 255, blue: 214 / 255, alpha: 1)
+    }
 }

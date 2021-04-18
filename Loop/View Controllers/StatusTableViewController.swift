@@ -56,6 +56,8 @@ final class StatusTableViewController: ChartsTableViewController {
 
                     self?.hudView?.loopCompletionHUD.loopInProgress = false
                     self?.log.debug("[reloadData] from notification with context %{public}@", String(describing: context))
+                    //need to reload the carbs row when data is updated, as we may need to add or remove the Nudging overlay
+                    self?.tableView.reloadData()
                     self?.reloadData(animated: true)
                 }
             },
@@ -334,7 +336,7 @@ final class StatusTableViewController: ChartsTableViewController {
             self.log.debug("Update net basal to %{public}@", String(describing: netBasal))
 
             DispatchQueue.main.async {
-                self.hudView?.loopCompletionHUD.dosingEnabled = manager.settings.dosingEnabled
+                self.hudView?.loopCompletionHUD.dosingEnabled = manager.settings.dosingEnabled || manager.settings.nudgingEnabled
                 self.lastLoopError = lastLoopError
 
                 if let netBasal = netBasal {
@@ -431,6 +433,9 @@ final class StatusTableViewController: ChartsTableViewController {
         } else {
             workoutMode = deviceManager.loopManager.settings.nonPreMealOverrideEnabled()
         }
+        
+        
+        configureToolbar()
 
         reloadGroup.notify(queue: .main) {
             /// Update the chart data
@@ -522,6 +527,7 @@ final class StatusTableViewController: ChartsTableViewController {
                 self.reloadData()
             }
         }
+        
     }
 
     private enum Section: Int {
@@ -781,6 +787,7 @@ final class StatusTableViewController: ChartsTableViewController {
                     return self?.statusCharts.cobChart(withFrame: frame)?.view
                 }
                 cell.titleLabel?.text = NSLocalizedString("Active Carbohydrates", comment: "The title of the Carbs On-Board graph")
+                cell.showOverlay = deviceManager.loopManager.settings.nudgingEnabled
             }
 
             self.tableView(tableView, updateSubtitleFor: cell, at: indexPath)
@@ -1425,5 +1432,14 @@ extension StatusTableViewController: AddEditOverrideTableViewControllerDelegate 
 
     func addEditOverrideTableViewController(_ vc: AddEditOverrideTableViewController, didCancelOverride override: TemporaryScheduleOverride) {
         deviceManager.loopManager.settings.scheduleOverride = nil
+    }
+}
+
+extension StatusTableViewController {
+    //this is for nudge specific items
+    func configureToolbar() {
+        toolbarItems?[0].isEnabled = !deviceManager.loopManager.settings.nudgingEnabled
+        toolbarItems?[2].isEnabled = !deviceManager.loopManager.settings.nudgingEnabled && preMealMode != nil
+        toolbarItems?[6].isEnabled = !deviceManager.loopManager.settings.nudgingEnabled && workoutMode != nil
     }
 }
