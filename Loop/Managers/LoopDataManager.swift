@@ -595,13 +595,18 @@ extension LoopDataManager {
                     self.carbEffect = nil
                     self.carbsOnBoard = nil
 
-                    do {
-                        try self.update()
-
-                        completion(.success(self.recommendedManualBolus?.recommendation))
-                    } catch let error {
-                        completion(.failure(error))
+                    // TODO: Jon Fawcett - Check that there are no issues just returning out of this.
+                    if self.settings.nudgingEnabled {
+                        return
+                    } else {
+                        do {
+                            try self.update()
+                            completion(.success(self.recommendedManualBolus?.recommendation))
+                        } catch let error {
+                            completion(.failure(error))
+                        }
                     }
+                    
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -822,7 +827,13 @@ extension LoopDataManager {
                             nudgeOutputData: nudgeOutputData
                         )
                     }
-
+                    self.glucoseMomentumEffect = nil
+                    self.insulinEffect = nil
+                    self.insulinEffectIncludingPendingInsulin = nil
+                    self.carbEffect = nil
+                    self.carbsOnBoard = nil
+                    self.retrospectiveGlucoseDiscrepancies = nil
+                    self.predictedGlucose = nil
                 } catch let error {
                     self.lastLoopError = error
                 }
@@ -1764,12 +1775,18 @@ extension LoopDataManager {
         dataAccessQueue.async {
             var updateError: Error?
 
-            do {
-                self.logger.debug("getLoopState: update()")
-                try self.update()
-            } catch let error {
-                updateError = error
+            // TODO: Jon Fawcett - Figure out if this is needed to call updateNudge.
+            if self.settings.nudgingEnabled {
+    
+            } else {
+                do {
+                    self.logger.debug("getLoopState: update()")
+                    try self.update()
+                } catch let error {
+                    updateError = error
+                }
             }
+            
 
             handler(self, LoopStateView(loopDataManager: self, updateError: updateError))
         }
