@@ -601,7 +601,7 @@ final class SettingsTableViewController: UITableViewController {
                 show(vc, sender: sender)
             }
         case .loop:
-            switch LoopRow(rawValue: indexPath.row)! {
+            switch loopRows[indexPath.row] {
             case .signin:
                 let loggedIn = LocalStorageManager.shared.patient != nil
                 if loggedIn {
