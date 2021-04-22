@@ -357,6 +357,8 @@ final class BolusViewController: ChartsTableViewController, IdentifiableClass, U
             return 0
         case .notice where bolusRecommendation?.notice == nil:
             return 0
+        case .recommended where deviceManager.loopManager.settings.nudgingEnabled:
+            return 0
         default:
             return super.tableView(tableView, heightForRowAt: indexPath)
         }

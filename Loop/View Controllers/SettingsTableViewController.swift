@@ -758,19 +758,23 @@ extension SettingsTableViewController: PumpManagerSetupViewControllerDelegate {
     func pumpManagerSetupViewController(_ pumpManagerSetupViewController: PumpManagerSetupViewController, didSetUpPumpManager pumpManager: PumpManagerUI) {
         dataManager.pumpManager = pumpManager
 
+        var needsReload = false
         if let basalRateSchedule = pumpManagerSetupViewController.basalSchedule {
             dataManager.loopManager.basalRateSchedule = basalRateSchedule
-            tableView.reloadRows(at: [[Section.configuration.rawValue, ConfigurationRow.basalRate.rawValue]], with: .none)
+            needsReload = true
         }
 
         if let maxBasalRateUnitsPerHour = pumpManagerSetupViewController.maxBasalRateUnitsPerHour {
             dataManager.loopManager.settings.maximumBasalRatePerHour = maxBasalRateUnitsPerHour
-            tableView.reloadRows(at: [[Section.configuration.rawValue, ConfigurationRow.deliveryLimits.rawValue]], with: .none)
+            needsReload = true
         }
 
         if let maxBolusUnits = pumpManagerSetupViewController.maxBolusUnits {
             dataManager.loopManager.settings.maximumBolus = maxBolusUnits
-            tableView.reloadRows(at: [[Section.configuration.rawValue, ConfigurationRow.deliveryLimits.rawValue]], with: .none)
+            needsReload = true
+        }
+        if needsReload {
+            tableView.reloadSections([Section.configuration.rawValue], with: .none)
         }
     }
 }

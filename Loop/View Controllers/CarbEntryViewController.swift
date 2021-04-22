@@ -293,7 +293,13 @@ final class CarbEntryViewController: ChartsTableViewController, IdentifiableClas
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return NSLocalizedString("Choose a longer absorption time for larger meals, or those containing fats and proteins. This is only guidance to the algorithm and need not be exact.", comment: "Carb entry section footer text explaining absorption time")
+        var string = NSLocalizedString("Choose a longer absorption time for larger meals, or those containing fats and proteins. This is only guidance to the algorithm and need not be exact.", comment: "Carb entry section footer text explaining absorption time")
+        
+        if deviceManager?.loopManager.settings.nudgingEnabled ?? false {
+            string += "\n\nNudge will not use the carb entry in its calculations. However, if you disable nudging, Loop will use this entry."
+        }
+        
+        return string
     }
 
     // MARK: - UITableViewDelegate
