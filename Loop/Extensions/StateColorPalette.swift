@@ -10,6 +10,8 @@ import LoopKitUI
 
 extension StateColorPalette {
     static let loopStatus = StateColorPalette(unknown: .unknownColor, normal: .freshColor, warning: .agingColor, error: .staleColor)
+    
+    static let nudgeStatus = StateColorPalette(unknown: .unknownColor, normal: .nudgeColor, warning: .agingColor, error: .staleColor)
 
     static let cgmStatus = loopStatus
 

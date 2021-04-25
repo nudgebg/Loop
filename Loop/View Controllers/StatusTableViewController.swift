@@ -55,6 +55,7 @@ final class StatusTableViewController: ChartsTableViewController {
                     }
 
                     self?.hudView?.loopCompletionHUD.loopInProgress = false
+                    self?.hudView?.loopCompletionHUD.stateColors = self?.deviceManager.loopManager.settings.nudgingEnabled ?? true ? .nudgeStatus : .loopStatus
                     self?.log.debug("[reloadData] from notification with context %{public}@", String(describing: context))
                     //need to reload the carbs row when data is updated, as we may need to add or remove the Nudging overlay
                     self?.tableView.reloadData()
@@ -1253,7 +1254,7 @@ final class StatusTableViewController: ChartsTableViewController {
             
             configurePumpManagerHUDViews()
             
-            hudView.loopCompletionHUD.stateColors = .loopStatus
+            hudView.loopCompletionHUD.stateColors = deviceManager.loopManager.settings.nudgingEnabled ? .nudgeStatus : .loopStatus
             hudView.glucoseHUD.stateColors = .cgmStatus
             hudView.glucoseHUD.tintColor = .glucoseTintColor
             hudView.basalRateHUD.tintColor = .doseTintColor

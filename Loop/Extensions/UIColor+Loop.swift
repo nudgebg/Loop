@@ -16,7 +16,9 @@ extension UIColor {
 
     @nonobjc static let doseTintColor = UIColor.systemOrange
 
-    @nonobjc static let freshColor = UIColor.NudgeBlueColor() // UIColor.HIGGreenColor()
+    @nonobjc static let freshColor = UIColor.HIGGreenColor()
+    
+    @nonobjc static let nudgeColor = UIColor.NudgeBlueColor()
 
     @nonobjc static let glucoseTintColor: UIColor = {
         if #available(iOS 13.0, *) {

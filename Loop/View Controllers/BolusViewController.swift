@@ -241,7 +241,7 @@ final class BolusViewController: ChartsTableViewController, IdentifiableClass, U
                 predictedGlucoseIncludingPendingInsulin = []
             }
 
-            self.glucoseChart.setPredictedGlucoseValues(predictedGlucoseIncludingPendingInsulin)
+            self.glucoseChart.setPredictedGlucoseValues(self.deviceManager.loopManager.settings.nudgingEnabled ? [] : predictedGlucoseIncludingPendingInsulin)
 
             if let lastPoint = self.glucoseChart.predictedGlucosePoints.last?.y {
                 self.eventualGlucoseDescription = String(describing: lastPoint)
@@ -487,7 +487,7 @@ final class BolusViewController: ChartsTableViewController, IdentifiableClass, U
             guard let self = self else { return }
             let enteredBolus = DispatchQueue.main.sync { self.enteredBolus }
             if let prediction = try? state.predictGlucose(using: .all, potentialBolus: enteredBolus, potentialCarbEntry: self.potentialCarbEntry, replacingCarbEntry: self.originalCarbEntry, includingPendingInsulin: true) {
-                self.glucoseChart.setPredictedGlucoseValues(prediction)
+                self.glucoseChart.setPredictedGlucoseValues( self.deviceManager.loopManager.settings.nudgingEnabled ? [] : prediction)
 
                 if let lastPoint = self.glucoseChart.predictedGlucosePoints.last?.y {
                     self.eventualGlucoseDescription = String(describing: lastPoint)

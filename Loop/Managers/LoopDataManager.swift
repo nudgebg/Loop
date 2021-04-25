@@ -596,8 +596,10 @@ extension LoopDataManager {
                     self.carbsOnBoard = nil
 
                     // TODO: Jon Fawcett - Check that there are no issues just returning out of this.
+                    // Dennis John - You cannot just return form here, it needs to return a success status
+                    //                or the bolus, if set, won't deliver.
                     if self.settings.nudgingEnabled {
-                        return
+                        completion(.success(self.recommendedManualBolus?.recommendation))
                     } else {
                         do {
                             try self.update()
