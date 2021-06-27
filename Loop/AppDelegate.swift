@@ -11,6 +11,7 @@ import Intents
 import LoopKit
 import UserNotifications
 import IQKeyboardManagerSwift
+import Firebase
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -64,6 +65,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         log.default("didFinishLaunchingWithOptions \(String(describing: launchOptions))")
         
         IQKeyboardManager.shared.enable = true
+        FirebaseApp.configure()
         
         AnalyticsManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 

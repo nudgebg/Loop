@@ -29,7 +29,7 @@ final class StatusTableViewController: ChartsTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         statusCharts.glucose.glucoseDisplayRange = HKQuantity(unit: .milligramsPerDeciliter, doubleValue: 100)...HKQuantity(unit: .milligramsPerDeciliter, doubleValue: 175)
 
         registerPumpManager()

