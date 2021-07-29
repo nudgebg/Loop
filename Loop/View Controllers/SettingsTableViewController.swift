@@ -142,7 +142,7 @@ final class SettingsTableViewController: UITableViewController {
     private var loopRows: [LoopRow] {
         var loopRows = LoopRow.allCases
         if (dataManager.loopManager.settings.nudgingEnabled) {
-            loopRows.remove(.dosing)
+            //loopRows.remove(.dosing)
         }
         return loopRows
     }
