@@ -601,8 +601,14 @@ extension DeviceDataManager: DoseStoreDelegate {
             completionHandler(pumpEvents.map({ $0.objectIDURL }))
             return
         }
+        
+        var uploadedBy = "loop://\(UIDevice.current.name)"
+        
+        if UserDefaults.appGroup?.loopSettings?.nudgingEnabled as! Bool {
+            uploadedBy = "Nudge://\(UIDevice.current.name)"
+        }
 
-        uploader.upload(pumpEvents, fromSource: "loop://\(UIDevice.current.name)") { (result) in
+        uploader.upload(pumpEvents, fromSource: uploadedBy) { (result) in
             switch result {
             case .success(let objects):
                 completionHandler(objects)
