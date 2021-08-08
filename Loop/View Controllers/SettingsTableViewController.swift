@@ -68,10 +68,10 @@ final class SettingsTableViewController: UITableViewController {
     }
 
     fileprivate enum ConfigurationRow: Int, CaseCountable {
-        case glucoseTargetRange = 0
-        case suspendThreshold
-        case basalRate
+        case basalRate = 0
         case deliveryLimits
+        case glucoseTargetRange
+        case suspendThreshold
         case insulinModel
         case dosingStrategy
         case carbRatio
@@ -134,7 +134,7 @@ final class SettingsTableViewController: UITableViewController {
             sections.remove(.testingCGMDataDeletion)
         }
         if (dataManager.loopManager.settings.nudgingEnabled) {
-            sections.remove(.configuration)
+            //sections.remove(.configuration)
         }
         return sections
     }
@@ -160,7 +160,11 @@ final class SettingsTableViewController: UITableViewController {
         case .cgm:
             return CGMRow.count
         case .configuration:
-            return ConfigurationRow.count
+            if dataManager.loopManager.settings.nudgingEnabled {
+                return 2
+            } else {
+                return ConfigurationRow.count
+            }
         case .services:
             return ServiceRow.count
         case .testingPumpDataDeletion, .testingCGMDataDeletion:
@@ -195,7 +199,7 @@ final class SettingsTableViewController: UITableViewController {
                 
                 switchCell.selectionStyle = .none
                 switchCell.switch?.isOn = dataManager.loopManager.settings.nudgingEnabled
-                switchCell.textLabel?.text = NSLocalizedString("Nudging", comment: "The title text for the looping enabled switch cell")
+                switchCell.textLabel?.text = NSLocalizedString("Enable Nudge Algorithm", comment: "The title text for the looping enabled switch cell")
 
                 switchCell.switch?.addTarget(self, action: #selector(nudgingEnabledChanged(_:)), for: .valueChanged)
 
@@ -205,7 +209,12 @@ final class SettingsTableViewController: UITableViewController {
 
                 switchCell.selectionStyle = .none
                 switchCell.switch?.isOn = dataManager.loopManager.settings.dosingEnabled
-                switchCell.textLabel?.text = NSLocalizedString("Closed Loop", comment: "The title text for the looping enabled switch cell")
+                if dataManager.loopManager.settings.nudgingEnabled {
+                    switchCell.textLabel?.text = NSLocalizedString("Closed Nudge", comment: "The title text for the looping enabled switch cell")
+                } else {
+                    switchCell.textLabel?.text = NSLocalizedString("Closed Loop", comment: "The title text for the looping enabled switch cell")
+                }
+                
 
                 switchCell.switch?.addTarget(self, action: #selector(dosingEnabledChanged(_:)), for: .valueChanged)
 
@@ -266,6 +275,10 @@ final class SettingsTableViewController: UITableViewController {
                 } else {
                     configCell.detailTextLabel?.text = SettingsTableViewCell.TapToSetString
                 }
+                if dataManager.loopManager.settings.nudgingEnabled {
+                    configCell.isHidden = true
+                }
+                
             case .insulinSensitivity:
                 configCell.textLabel?.text = NSLocalizedString("Insulin Sensitivities", comment: "The title text for the insulin sensitivity schedule")
 
@@ -281,6 +294,9 @@ final class SettingsTableViewController: UITableViewController {
                 } else {
                     configCell.detailTextLabel?.text = SettingsTableViewCell.TapToSetString
                 }
+                if dataManager.loopManager.settings.nudgingEnabled {
+                    configCell.isHidden = true
+                }
             case .glucoseTargetRange:
                 configCell.textLabel?.text = NSLocalizedString("Correction Range", comment: "The title text for the glucose target range schedule")
 
@@ -294,6 +310,9 @@ final class SettingsTableViewController: UITableViewController {
                 } else {
                     configCell.detailTextLabel?.text = SettingsTableViewCell.TapToSetString
                 }
+                if dataManager.loopManager.settings.nudgingEnabled {
+                    configCell.isHidden = true
+                }
             case .suspendThreshold:
                 configCell.textLabel?.text = NSLocalizedString("Suspend Threshold", comment: "The title text in settings")
                 
@@ -303,6 +322,9 @@ final class SettingsTableViewController: UITableViewController {
                 } else {
                     configCell.detailTextLabel?.text = SettingsTableViewCell.TapToSetString
                 }
+                if dataManager.loopManager.settings.nudgingEnabled {
+                    configCell.isHidden = true
+                }
             case .insulinModel:
                 configCell.textLabel?.text = NSLocalizedString("Insulin Model", comment: "The title text for the insulin model setting row")
 
@@ -311,9 +333,15 @@ final class SettingsTableViewController: UITableViewController {
                 } else {
                     configCell.detailTextLabel?.text = SettingsTableViewCell.TapToSetString
                 }
+                if dataManager.loopManager.settings.nudgingEnabled {
+                    configCell.isHidden = true
+                }
             case .dosingStrategy:
                 configCell.textLabel?.text = NSLocalizedString("Dosing Strategy", comment: "The title text for the dosing strategy setting row")
                 configCell.detailTextLabel?.text = dataManager.loopManager.settings.dosingStrategy.title
+                if dataManager.loopManager.settings.nudgingEnabled {
+                    configCell.isHidden = true
+                }
             case .deliveryLimits:
                 configCell.textLabel?.text = NSLocalizedString("Delivery Limits", comment: "Title text for delivery limits")
 
