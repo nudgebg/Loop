@@ -758,8 +758,10 @@ extension LoopDataManager {
                         maximumBasalUnitsPerHour: maximumBasalUnitsPerHour,
                         maximumBolusUnits: maximumBolusUnits
                     )
+                    
+                    self.logger.debug("Nudge:\r"+String(nudgeOutputData.status))
 
-                    let requestedActions = nudgeOutputData.requestedActions
+                   let requestedActions = nudgeOutputData.requestedActions
 
 
                     if nudgeOutputData.egvForecast.count > 0 {
