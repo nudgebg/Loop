@@ -33,6 +33,8 @@ final class LoopDataManager {
     let nudgeService: NudgeService
     
     var resetPersonSimulatorOnNextRun: Bool = false
+    
+    var lastNudgeString: String = ""
 
     weak var delegate: LoopDataManagerDelegate?
 
@@ -760,6 +762,8 @@ extension LoopDataManager {
                     )
                     
                     self.logger.debug("Nudge:\r"+String(nudgeOutputData.status))
+                    //self.lastNudgeString = String(nudgeOutputData.status).replacingOccurrences(of: "\r", with: ", ")
+                    self.lastNudgeString = String(nudgeOutputData.status)
 
                    let requestedActions = nudgeOutputData.requestedActions
 

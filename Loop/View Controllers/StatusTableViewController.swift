@@ -297,6 +297,7 @@ final class StatusTableViewController: ChartsTableViewController {
 
         log.debug("Reloading data with context: %@", String(describing: refreshContext))
 
+        
         let currentContext = refreshContext
         var retryContext: Set<RefreshContext> = []
         self.refreshContext = []
@@ -507,6 +508,15 @@ final class StatusTableViewController: ChartsTableViewController {
                         sensor: self.deviceManager.sensorState
                     )
                 }
+            }
+            
+            //Update Nudge Status
+            if self.deviceManager.loopManager.settings.nudgingEnabled {
+                self.NudgeStatusLabel.isHidden = false
+                self.NudgeStatusLabel.text = "Nudge Status: " + self.deviceManager.loopManager.lastNudgeString
+                self.NudgeStatusLabel.sizeToFit()
+            } else {
+                self.NudgeStatusLabel.isHidden = true
             }
 
             // Show/hide the table view rows
@@ -1235,6 +1245,7 @@ final class StatusTableViewController: ChartsTableViewController {
 
     // MARK: - HUDs
 
+    @IBOutlet weak var NudgeStatusLabel: UILabel!
     @IBOutlet var hudView: HUDView? {
         didSet {
             guard let hudView = hudView, hudView != oldValue else {
